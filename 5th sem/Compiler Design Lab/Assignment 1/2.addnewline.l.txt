@@ -1,0 +1,25 @@
+ #include<stdio.h>
+  int l_count = 1;
+%}
+
+ 
+
+line .*\n
+
+ 
+
+%%
+{line} {printf("%d. %s",l_count++,yytext);}
+%%
+
+ 
+
+int yywrap(){
+  return 1;
+}
+  
+int main(){
+   yylex();
+   printf("\n");
+   return 0;
+}

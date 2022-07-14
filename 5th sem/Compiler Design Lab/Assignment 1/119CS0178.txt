@@ -1,0 +1,186 @@
+Name : Suvash Chandra Yadav_119CS0178_Assignment1
+Assignment 1
+Q1.
+Code :
+%{
+ #include<stdio.h>
+%}
+%%
+[ \t\n]+ { printf(" "); }
+. { printf("%s", yytext); }
+%%
+int yywrap()
+{
+ return 1;
+}
+int main()
+{
+ 
+ yylex();
+ return 0;
+}
+Input :
+Paragraphs are the group of sentences combined together, about a certain topic.
+It is a very important form of writing as we write almost everything in paragraphs, be it an answer, 
+essay, story, emails, etc.
+We can say that a well-structured paragraph is the essence of good writing. 
+The purposes of the paragraph are to give information, to explain something, to tell a story, and to 
+convince someone that our idea is right.
+Output :
+Paragraphs are the group of sentences combined together, about a certain topic. It is a very important 
+form of writing as we write almost everything in paragraphs, be it an answer, essay, story, emails, etc.
+We can say that a well-structured paragraph is the essence of good writing. The purposes of the 
+paragraph are to give information, to explain something, to tell a story, and to convince someone that 
+our idea is right.
+Q2.
+Code :
+%{
+#include<stdio.h>
+ int line_no =1;
+%}
+line .*\n
+%%
+{line} {printf("%d %s", line_no++, yytext);}
+%%
+int main()
+{
+ yylex();
+}
+Input :
+Paragraphs are the group of sentences combined together, about a certain topic.
+It is a very important form of writing as we write almost everything in paragraphs, be it an answer, 
+essay, story, emails, etc.
+We can say that a well-structured paragraph is the essence of good writing. 
+The purposes of the paragraph are to give information, to explain something, to tell a story, and to 
+convince someone that our idea is right.
+Output :
+1 Paragraphs are the group of sentences combined together, about a certain topic.
+2 It is a very important form of writing as we write almost everything in paragraphs, be it an answer, 
+essay, story, emails, etc.
+3 We can say that a well-structured paragraph is the essence of good writing. 
+4 The purposes of the paragraph are to give information, to explain something, to tell a story, and to 
+convince someone that our idea is right.
+Q3.
+Code :
+%{
+#include<stdio.h>
+%}
+single_cmmnt "//".*"\n"
+multi_cmmnt "/*".*[\n]*.*"*/"
+%%
+{single_cmmnt} {printf("%s",yytext);}
+{multi_cmmnt} {printf("%s",yytext);}
+[A-Z] printf("%c",yytext[0] - ('A' - 'a'));
+. printf("%s",yytext);
+%%
+int yywrap(){
+ return 1;}
+int main(){
+yylex();
+return 0;
+}
+Input :
+Paragraphs are the group of sentences combined together, about a certain topic.
+It is a very important form of writing as we write almost everything in paragraphs, be it an answer, 
+essay, story, emails, etc.
+We can say that a well-structured paragraph is the essence of good writing. 
+The purposes of the paragraph are to give information, to explain something, to tell a story, and to 
+convince someone that our idea is right.
+Output :
+paragraphs are the group of sentences combined together, about a certain topic.
+it is a very important form of writing as we write almost everything in paragraphs, be it an answer, 
+essay, story, emails, etc.
+we can say that a well-structured paragraph is the essence of good writing. 
+the purposes of the paragraph are to give information, to explain something, to tell a story, and to 
+convince someone that our idea is right.
+Q4.
+Code :
+%{
+#include<stdio.h>
+#include<stdlib.h>
+int charc=0, wordc=0, linec=0;
+%}
+character [a-zA-Z]
+digit [0-9]
+word({character}|{digit})+
+line \n
+%%
+{line} {charc++; linec++; }
+{word} {wordc++; charc+=strlen(yytext);}
+. {charc++;}
+%%
+int yywrap(){
+return 1;}
+int main()
+{
+yylex();
+printf("char_count = %d\n",charc);
+printf("word_count = %d\n",wordc);
+printf("lines_count = %d\n",linec);
+return 0;
+}
+Input :
+Paragraphs are the group of sentences combined together, about a certain topic.
+It is a very important form of writing as we write almost everything in paragraphs, be it an answer, 
+essay, story, emails, etc.
+We can say that a well-structured paragraph is the essence of good writing. 
+The purposes of the paragraph are to give information, to explain something, to tell a story, and to 
+convince someone that our idea is right.
+Output :
+char_count = 430
+word_count = 74
+lines_count = 4
+Q5.
+Code :
+%{
+#include<stdio.h>
+%}
+letter [A-Z]
+digit [0-9]
+sign [+|-]?
+arith-op [+|-|*|/|\^]
+relop [<|<=|>|=>|<>|=]
+%%
+END|FOR|GOSUB|GOTO|IF|LET|REM|RETURN|STEP|TO printf("\n%s : keyword\n", yytext);
+({letter}{digit}|{letter})* printf("\n%s : variable\n", yytext);
+{sign}{digit}({digit})* printf("\n%s : constant\n", yytext);
+{arith-op} printf("\n%s :arithmetic operation\n", yytext);
+{relop} printf("\n%s : relation operator\n", yytext);
+cr {printf("\n%s : line end\n", yytext);}
+%%
+int yywrap(){
+return 1;}
+int main()
+{
+yylex();
+return 0;
+}
+Input:-
+IF
+RETURN 
+-88
+19
+GOTO
+NTY7
+9 + 8 = 17
+5 > -10
+END
+Cr
+Output:-
+IF : keyword 
+RETURN : keyword 
+-88 : constant
+1 9 : constant
+GOTO : keyword
+NtY : variable
+7 : constant
+9 : constant
++ : arithmetic-operation
+8 : constant
+= : relation operator
+17 : constant
+5 : constant
+> : relation operator
+-10 : constant
+END : keyword
+cr : line end

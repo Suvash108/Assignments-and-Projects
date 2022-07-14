@@ -1,0 +1,26 @@
+;119CS0178_SuvashChandraYadav
+;<TO SEPARATE EVEN NUMBERS>
+
+jmp start
+
+;data
+
+
+;code
+start: nop
+
+LXI H,0010H
+LXI D,0020H
+MVI C,10H
+LOOP: MOV A,M
+ANI 01H
+JNZ SKIP
+MOV A,M
+STAX D
+INX D
+SKIP: INX H
+DCR C
+JNZ LOOP
+
+
+hlt

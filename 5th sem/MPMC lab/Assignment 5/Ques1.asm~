@@ -1,0 +1,28 @@
+
+;<Program title>
+
+jmp start
+
+;data
+
+
+
+;code
+start: nop
+MVI B,50
+MVI C,00H
+MVI D,80
+XRA A
+MOV C,A
+LOOP:ADD M
+JNC SKIP
+INR C
+SKIP DCR B
+JNZ LOOP 
+LXI H,8050H
+MOV M,C
+INX H
+MOV M,A
+
+
+hlt

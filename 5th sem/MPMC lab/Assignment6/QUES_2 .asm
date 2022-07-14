@@ -1,0 +1,29 @@
+;119CS0178_SuvashChandraYadav
+;<TO SORT IN DESCENDING ORDER>
+
+jmp start
+
+;data
+
+
+;code
+start: nop
+
+MVI B,10H
+NEXT: MVI C,10H
+LXI H,0010H
+LOOP: MOV A,M
+INX H
+CMP M
+JNC SKIP
+JZ SKIP
+MOV D,M
+MOV M,A
+DCX H
+MOV M,D
+INX H
+SKIP: DCR C
+JNZ LOOP
+DCR B
+JNZ NEXT
+hlt

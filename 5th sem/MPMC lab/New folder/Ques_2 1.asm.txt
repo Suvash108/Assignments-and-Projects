@@ -1,0 +1,32 @@
+
+;<Program title>
+
+jmp start
+
+
+
+;data
+
+
+;code
+START: NOP
+MVI A,20H
+STA 202
+MVI A,64H
+STA 203
+MVI C,0
+LDA 203
+MOV B,A
+LDA 202
+SUB B
+JNC FOR
+CMA
+INR A
+INR C
+FOR: STA 204
+     MOV A,C
+     STA 205
+
+
+
+hlt
